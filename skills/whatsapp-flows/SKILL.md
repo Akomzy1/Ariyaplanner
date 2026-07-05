@@ -33,7 +33,7 @@ Memorial events: every template has a memorial variant (register per `skills/mem
 ## Inbound handling (`/api/wa/webhook`)
 
 1. Verify signature; upsert user by phone; log to `wa_messages`; open session window.
-2. Route: structured replies first (DONE/PAID/HERE/1) → deterministic handlers. Otherwise → Haiku classifier: {task_update | vendor_quote | question | contribution | other} → tool-called extraction (Zod) → update DB → confirm in-thread ("Logged: caterer quote ₦8,000/head for 200 — that's mid-range for Lagos. Budget updated.").
+2. Route: structured replies first (DONE/PAID/HERE/1) → deterministic handlers. Otherwise → Haiku classifier: {task_update | vendor_quote | question | contribution | suggestion | other} → tool-called extraction (Zod) → update DB → confirm in-thread ("Logged: caterer quote ₦8,000/head for 200 — that's mid-range for Lagos. Budget updated.").
 3. Money-affecting extractions (quotes, payments) always echo back for confirmation before final commit if confidence < high.
 4. Never send unsolicited marketing. Opt-out: STOP honoured immediately per thread, logged.
 
