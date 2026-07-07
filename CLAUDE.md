@@ -1,6 +1,6 @@
 # CLAUDE.md — AriyaPlanner
 
-AI event planner for Nigerian families: weddings, burials, birthdays, naming ceremonies. Turns family WhatsApp chaos into a coordinated plan — culturally correct programs, naira budgets, committee workstreams, contribution tracking, vendor coordination, day-of command centre. Lagos/Abuja first. Built by AkomzyAi Consulting Ltd.
+AI event planner for Nigerian families and workplaces: weddings, burials, birthdays, naming ceremonies, office celebrations (office = launch event type, unmarketed; family-and-culture remains the positioning lead). Turns family WhatsApp chaos into a coordinated plan — culturally correct programs, naira budgets, committee workstreams, contribution tracking, vendor coordination, day-of command centre. Lagos/Abuja first. Built and owned by Ariya Planner Ltd (Nigeria), 100% Nigerian-owned.
 
 Read this file fully before writing any code. It applies to every prompt in the build pack.
 
@@ -16,7 +16,7 @@ The Claude Design prototype HTML files in `/design-prototype/` are the **single 
 - **Both registers are law:** celebration (emerald/gold/cream) and memorial (sage/slate/bronze) exist in the prototype. Every screen that can render a burial event must implement the memorial register exactly as prototyped. Register is driven by `events.mode` (`celebration` | `memorial`), never by ad-hoc styling.
 - If prototype and PRD conflict on **visuals**, the prototype wins. If they conflict on **behaviour/logic**, the PRD + skills win. If genuinely ambiguous, stop and ask — do not guess.
 - Expected prototype files (adjust to actual export names in Prompt 5 and record the mapping in `/design-prototype/MANIFEST.md`):
-  `00-design-system.html`, `01-homepage.html`, `02a-event-weddings.html`, `02b-event-burials.html`, `03a-pricing.html`, `03b-price-index.html`, `04-architect.html` (intake + plan view, both registers), `05a-committee-board.html`, `05b-contribution-ledger.html`, `05c-day-of-command-centre.html` (incl. offline state).
+  `00-design-system.html`, `01-homepage.html`, `02a-event-weddings.html`, `02b-event-burials.html`, `02c-event-office.html`, `03a-pricing.html`, `03b-price-index.html`, `04-architect.html` (intake + plan view, both registers), `05a-committee-board.html` (incl. F2a suggestion queue + member suggest entry), `05b-contribution-ledger.html`, `05c-day-of-command-centre.html` (incl. offline state + trial-gate locked state), `06-recap-card.html` (post-event shareable recap, both registers).
 
 ## 1. Stack (locked)
 
@@ -39,7 +39,7 @@ The Claude Design prototype HTML files in `/design-prototype/` are the **single 
 
 ## 3. Data model (authoritative summary)
 
-`users` · `events` (type, mode celebration|memorial, culture, religion, dates[], city, budget_band, status, runway_days, event_coordinator_id, day_of_coordinator_id, trial_started_at, pass_paid_at) · `ceremonies` · `workstreams` · `tasks` (lead_time_days, dependencies uuid[], criticality, due_date, status, owner_id) · `committee_members` (role: chief_host|event_coordinator|workstream_lead|member|viewer) · `contributions` (append-only; corrects_id) · `vendors` (unified: phone-deduped, verified, claimed, events_served) · `vendor_engagements` (quotes jsonb, deposit_kobo, balance_kobo, status, check_in_at, ratings) · `aso_ebi_items` + `aso_ebi_orders` · `suggestions` (suggester_id, workstream, item, est_kobo nullable, status: pending|approved|declined, resolved_by) · `price_bands` (category × city × tier, versioned) · `program_templates` (versioned, human-curated) · `milestones` · `wa_messages` (in/out log, template_name, window_state) · `audit_log` (append-only).
+`users` · `events` (type, mode celebration|memorial, culture, religion, dates[], city, budget_band, status, runway_days, date_mode fixed|birth_plus_n, expected_window, trigger_recorded_at, event_coordinator_id, day_of_coordinator_id, trial_started_at, pass_paid_at) · `ceremonies` · `workstreams` · `tasks` (lead_time_days, dependencies uuid[], criticality, due_date, status, owner_id) · `committee_members` (role: chief_host|event_coordinator|workstream_lead|member|viewer) · `contributions` (append-only; corrects_id) · `vendors` (unified: phone-deduped, verified, claimed, events_served) · `vendor_engagements` (quotes jsonb, deposit_kobo, balance_kobo, status, check_in_at, ratings) · `aso_ebi_items` + `aso_ebi_orders` · `suggestions` (suggester_id, workstream, item, est_kobo nullable, status: pending|approved|declined, resolved_by) · `tips` (versioned advisory library: event_type × workstream × runway_stage × guest_band, body, register variants) · `idea_assets` (owned/licensed reference images: category, storage_path, license_source, license_note) · `event_ideas` (generated ideas: event_id, prompt_context, title, est_kobo nullable, asset_ids uuid[], status: shown|accepted|dismissed, materialised_suggestion_id) · `price_bands` (category × city × tier, versioned) · `program_templates` (versioned, human-curated) · `milestones` · `wa_messages` (in/out log, template_name, window_state) · `audit_log` (append-only).
 
 ## 4. Repository layout
 

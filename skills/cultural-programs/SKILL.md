@@ -27,12 +27,13 @@ program_templates (
 
 Each `blocks` entry: `{ order, title, description, duration_min, default_time_hint, roles: ["alaga_ijoko", "mc", ...], vendor_categories: ["catering","decor",...], optional: bool, notes }`.
 
-## Launch library (12 templates, all require consultant review before `is_live`)
+## Launch library (13 templates; all except Office Celebration require consultant review before `is_live`)
 
 Weddings: Yoruba traditional engagement · Igbo traditional (wine-carrying) · Hausa (Fatiha-led) · White wedding + reception (culture-neutral, pairs with any traditional).
 Burials: Christian sequence (wake-keep → service of songs → funeral service → interment → reception) · Muslim janazah (compressed 24–72h timeline) — Igbo `ikwa ozu` considerations included as flagged optional blocks in the Christian/traditional variants.
-Naming: Yoruba (7th/8th-day) · Christian/Muslim neutral variant.
+Naming: Yoruba (7th/8th-day) · Christian/Muslim neutral variant (Muslim variant includes 7th-day aqiqah). **Naming templates MUST carry cultural procurement tasks as blocks:** the Yoruba symbolic items list (honey, kola nut, bitter kola, alligator pepper, salt, sugar/sugarcane, water, palm oil, dried fish — each with its meaning noted in the program), officiant arrangement (pastor/imam/elder), and for the Muslim variant the **aqiqah ram** as a time-critical procurement task (1–2 day lead). Igbo naming variant: consultant-flagged template gap, not improvised.
 Birthdays: milestone adult (40th/50th/70th) · standard celebration.
+Office celebration ×1: end-of-year party / retirement send-off / company milestone — culture-neutral, **no ritual content, therefore no consultant gate: ships `is_live=true`**; default workstreams swap Aso-ebi for a Colleagues/Logistics split; intake skips culture/religion questions.
 Plus: cross-cultural wedding combiner rules · culture-neutral fallback.
 
 ## Assembly rules for the Architect

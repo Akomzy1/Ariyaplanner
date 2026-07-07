@@ -26,6 +26,8 @@ Scheduling is **deterministic critical-path computation** in `/lib/scheduler` (p
 
 - **Comfortable (slack ≥ 14d on critical path):** conventional sequencing; surface "book early to lock price" ordering (deposits hedge naira inflation).
 - **Tight (0 < slack < 14d):** compress: mark parallelisable tasks, shorten nice-to-haves, weekly → twice-weekly nudge cadence.
+- **Sprint (runway ≤ 14 days — the naming norm at birth + 8):** triage rules plus daily-cadence output: a morning digest payload for the Event Coordinator (day X of N, today's tasks, at-risk list) and same-day re-chase on blocking tasks.
+- **Anticipated-date mode (`events.date_mode = 'birth_plus_n'`):** event date unknown until a trigger. Scheduler runs against the expected window: tasks whose `lead_time_days` > N (post-trigger runway) are classed **do-now** (must complete pre-trigger — emit plainly); the rest are **on-trigger**. On date lock (trigger recorded), recompute the full critical path against trigger + N and switch to sprint cadence. Golden test: naming ceremony planned 3 weeks pre-birth, date locked at birth, correct do-now/on-trigger split and instant recompute.
 - **Triage (any blocking task infeasible — the burial norm at 2–6 weeks):** the scheduler emits `infeasible_tasks[]` + `alternatives_needed[]`; the Architect then swaps template alternatives (e.g., `aso_ebi_custom` lead 21d → `aso_ebi_ready_made` lead 5d) and states the trade-off plainly. A 3-week plan is structurally different from a 6-month plan — never the same checklist with tighter dates.
 
 ## Feasibility honesty (intake gate)
