@@ -21,9 +21,13 @@ $$;
 -- The auth schema + a minimal auth.users (FK target for public.users).
 create schema if not exists auth;
 
+-- Mirrors the columns of Supabase's auth.users that our migrations touch.
 create table if not exists auth.users (
   id uuid primary key,
-  email text
+  email text,
+  phone text,
+  raw_user_meta_data jsonb not null default '{}',
+  created_at timestamptz not null default now()
 );
 
 -- auth.uid() / auth.role() read the request JWT claims GUC, exactly like

@@ -203,6 +203,21 @@ describe("reference content — public vs gated", () => {
   });
 });
 
+describe("auth profile trigger", () => {
+  it("creates a public.users profile for each auth signup", async () => {
+    const rows = await t.asRole({ role: "service_role" }, async (q) => {
+      const { rows } = await q<{ n: string; named: string }>(
+        `select count(*)::text as n,
+                count(*) filter (where full_name is not null)::text as named
+         from users`,
+      );
+      return rows[0]!;
+    });
+    expect(Number(rows.n)).toBe(6);
+    expect(Number(rows.named)).toBe(6);
+  });
+});
+
 describe("service role", () => {
   it("bypasses RLS to read all contributions across events", async () => {
     const n = await t.asRole({ role: "service_role" }, async (q) => {

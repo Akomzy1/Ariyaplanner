@@ -33,14 +33,20 @@ export const ids = {
 export async function seed(q: Query): Promise<void> {
   const u = ids.users;
 
+  // Insert only into auth.users; the on_auth_user_created trigger creates the
+  // matching public.users profile (id, phone, full_name) — exactly as signup
+  // does in production.
+  const keys = Object.keys(u);
   for (const [key, id] of Object.entries(u)) {
-    await q("insert into auth.users (id, email) values ($1, $2)", [
-      id,
-      `${key}@example.test`,
-    ]);
     await q(
-      "insert into users (id, phone, full_name) values ($1, $2, $3)",
-      [id, `+23480000000${Object.keys(u).indexOf(key)}`, key],
+      `insert into auth.users (id, email, phone, raw_user_meta_data)
+       values ($1, $2, $3, $4)`,
+      [
+        id,
+        `${key}@example.test`,
+        `+23480000000${keys.indexOf(key)}`,
+        JSON.stringify({ full_name: key }),
+      ],
     );
   }
 
