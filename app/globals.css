@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  P1 PLACEHOLDER TOKENS.
+  Prompt 5 extracts the real celebration + memorial palettes, type scale, radii
+  and shadows from /design-prototype/*.html into styles/tokens.css and this file.
+  These HSL values are placeholders that only exist so the register-switching
+  mechanism (data-register) works end to end from day one.
+  Never hardcode colour values in components — always consume the Tailwind token
+  classes (bg-primary, text-foreground, border-border, …) which map to these vars.
+*/
+@layer base {
+  :root,
+  [data-register="celebration"] {
+    --background: 40 33% 97%; /* placeholder cream */
+    --foreground: 20 14% 12%; /* placeholder charcoal */
+    --card: 40 33% 99%;
+    --card-foreground: 20 14% 12%;
+    --popover: 40 33% 99%;
+    --popover-foreground: 20 14% 12%;
+    --primary: 152 55% 22%; /* placeholder deep emerald */
+    --primary-foreground: 40 33% 97%;
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 20 14% 18%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 25 8% 40%;
+    --accent: 38 70% 48%; /* placeholder gold/ochre */
+    --accent-foreground: 20 14% 12%;
+    --destructive: 0 72% 42%;
+    --destructive-foreground: 40 33% 97%;
+    --border: 34 20% 86%;
+    --input: 34 20% 86%;
+    --ring: 152 55% 22%;
+    --radius: 0.75rem;
+  }
+
+  [data-register="memorial"] {
+    --background: 210 16% 96%; /* placeholder stone */
+    --foreground: 215 20% 18%; /* placeholder slate */
+    --card: 210 16% 98%;
+    --card-foreground: 215 20% 18%;
+    --popover: 210 16% 98%;
+    --popover-foreground: 215 20% 18%;
+    --primary: 155 15% 38%; /* placeholder sage */
+    --primary-foreground: 210 16% 97%;
+    --secondary: 210 14% 90%;
+    --secondary-foreground: 215 20% 22%;
+    --muted: 210 14% 90%;
+    --muted-foreground: 215 10% 42%;
+    --accent: 32 28% 46%; /* placeholder bronze */
+    --accent-foreground: 210 16% 97%;
+    --destructive: 0 50% 40%;
+    --destructive-foreground: 210 16% 97%;
+    --border: 210 14% 84%;
+    --input: 210 14% 84%;
+    --ring: 155 15% 38%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

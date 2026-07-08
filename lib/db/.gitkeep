@@ -1,0 +1,2 @@
+# lib/db — Supabase clients (browser/server/service-role), typed queries, and Zod
+# schemas used at every boundary (P2 onward). Money is integer kobo end to end.

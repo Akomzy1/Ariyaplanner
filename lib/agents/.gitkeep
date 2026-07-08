@@ -1,0 +1,3 @@
+# lib/agents — Claude-backed agents (P8 architect.ts, P13 dispatcher.ts, P15 scribe.ts).
+# All agent outputs that modify program/budget/tasks go through schema-validated
+# (Zod) tool calls. See CLAUDE.md §2 and skills/.

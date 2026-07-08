@@ -1,0 +1,3 @@
+# lib/wa — WhatsApp send infrastructure (P17): Cloud API client, template + session
+# senders, session media sender, window.ts (24-hour window logic, unit-tested),
+# outbox worker. See skills/whatsapp-flows.

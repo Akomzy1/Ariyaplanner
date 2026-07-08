@@ -1,0 +1,3 @@
+# lib/scheduler — deterministic critical-path engine (P10). Pure, fully unit-tested.
+# Implements skills/runway-scheduler exactly (topo sort, backward/forward pass,
+# slack, critical path, feasibility, sprint + anticipated-date modes, drift).

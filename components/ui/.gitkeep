@@ -1,0 +1,2 @@
+# components/ui — shadcn/ui primitives. Restyled to the prototype tokens in P5
+# (button, card, input, tabs, badge, dialog). Add with `pnpm dlx shadcn@latest add`.
