@@ -8,6 +8,11 @@ const repoRoot = resolve(here, "..", "..");
 const migrationsDir = join(repoRoot, "supabase", "migrations");
 const bootstrapPath = join(here, "bootstrap.sql");
 
+/** Read a SQL file by its path relative to the repo root. */
+export function readSql(relPath: string): string {
+  return readFileSync(join(repoRoot, relPath), "utf8");
+}
+
 export type Claims = { sub?: string; role?: string };
 
 export interface TestDb {
@@ -29,17 +34,26 @@ export type Query = <R = Record<string, unknown>>(
   params?: unknown[],
 ) => Promise<{ rows: R[]; affectedRows: number }>;
 
-function migrationFiles(): string[] {
+function migrationFiles(includeSeeds: boolean): string[] {
   return readdirSync(migrationsDir)
     .filter((f) => f.endsWith(".sql"))
+    .filter((f) => includeSeeds || !f.includes("seed"))
     .sort();
 }
 
-/** Fresh in-memory database with the shim + all production migrations applied. */
-export async function createTestDb(): Promise<TestDb> {
+export interface CreateTestDbOptions {
+  /** Apply data-seed migrations (files whose name contains "seed"). Default false
+   *  so RLS tests run against schema only, with their own fixtures. */
+  includeSeeds?: boolean;
+}
+
+/** Fresh in-memory database with the shim + migrations applied. */
+export async function createTestDb(
+  opts: CreateTestDbOptions = {},
+): Promise<TestDb> {
   const db = new PGlite();
   await db.exec(readFileSync(bootstrapPath, "utf8"));
-  for (const file of migrationFiles()) {
+  for (const file of migrationFiles(opts.includeSeeds ?? false)) {
     await db.exec(readFileSync(join(migrationsDir, file), "utf8"));
   }
 
